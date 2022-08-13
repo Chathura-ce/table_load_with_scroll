@@ -25,7 +25,7 @@ test.users.email,
 test.posts.published_at
 FROM
 test.posts
-INNER JOIN test.users ON test.posts.author_id = test.users.id
+INNER JOIN test.users ON test.posts.author_id = test.users.id order by test.posts.id
 limit {$start},{$rows_per_page}";
 
 $result = mysqli_query($conn, $sql);
