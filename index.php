@@ -33,6 +33,7 @@
     <table>
         <thead style="position:sticky;top: 0">
         <tr>
+            <th>id</th>
             <th>title</th>
             <th>slug</th>
             <th>body</th>
@@ -52,25 +53,35 @@
 </body>
 </html>
 <script>
+    // let LAST_PAGE = null;
+    let PAGE = 1;
+    let LOADED = false;
     const div = document.querySelector("#tableDiv");
     div.addEventListener("scroll", () => {
-        // if (div.scrollTop + div.clientHeight >= div.scrollHeight) loadMore();
+        if (div.scrollTop + div.clientHeight >= div.scrollHeight) loadMore();
     });
     loadMore();
+
     function loadMore() {
+        if (LOADED) return;
         $.ajax({
-            url:'Db.php',
-            method:'GET',
-            success:function (obj) {
+            url: 'Db.php',
+            method: 'GET',
+            data: {
+                p: PAGE
+            },
+            success: function (obj) {
                 const data = JSON.parse(obj);
-                $.each(data.data,function (i,row) {
+                setData(data);
+                $.each(data.data, function (i, row) {
                     let tr = `<tr>`;
-                    tr+= `<td>${row.title}</td>`
-                    tr+= `<td>${row.slug}</td>`
-                    tr+= `<td>${row.body}</td>`
-                    tr+= `<td>${row.name}</td>`
-                    tr+= `<td>${row.email}</td>`
-                    tr+= `<td>${row.published_at}</td>`
+                    tr += `<td>${row.id}</td>`
+                    tr += `<td>${row.title}</td>`
+                    tr += `<td>${row.slug}</td>`
+                    tr += `<td>${row.body}</td>`
+                    tr += `<td>${row.name}</td>`
+                    tr += `<td>${row.email}</td>`
+                    tr += `<td>${row.published_at}</td>`
                     tr += `</tr>`;
                     $('#mainTbody').append(tr);
                 })
@@ -78,6 +89,14 @@
 
             }
         })
+    }
+
+    function setData(data) {
+        if (PAGE >= data.last_page) {
+            LOADED = true;
+            return;
+        }
+        PAGE = parseInt(data.p) + 1;
     }
 </script>
 
