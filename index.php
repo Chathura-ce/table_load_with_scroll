@@ -25,9 +25,7 @@
 </head>
 <body>
 
-<h2>Zebra Striped Table</h2>
-<p>For zebra-striped tables, use the nth-child() selector and add a background-color to all even (or odd) table
-    rows:</p>
+<h2>LOAD DATA WHILE SCROLLING TABLE</h2>
 <div style="display: flex;justify-content: flex-end">
     <img onclick="exportExcel()" src="excel.png" alt="" style="cursor:pointer;">
 </div>
