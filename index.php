@@ -28,9 +28,11 @@
 <h2>Zebra Striped Table</h2>
 <p>For zebra-striped tables, use the nth-child() selector and add a background-color to all even (or odd) table
     rows:</p>
-
+<div style="display: flex;justify-content: flex-end">
+    <img onclick="exportExcel()" src="excel.png" alt="" style="cursor:pointer;">
+</div>
 <div id="tableDiv" style="height: 50vh;overflow-y: scroll">
-    <table>
+    <table border="1">
         <thead style="position:sticky;top: 0">
         <tr>
             <th>id</th>
@@ -97,6 +99,10 @@
             return;
         }
         PAGE = parseInt(data.p) + 1;
+    }
+
+    function exportExcel() {
+        window.open('excelExport.php');
     }
 </script>
 
